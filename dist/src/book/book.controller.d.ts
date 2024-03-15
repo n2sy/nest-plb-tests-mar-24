@@ -1,10 +1,25 @@
-import { BookService } from './book.service';
-import { Request } from 'express';
+/// <reference types="multer" />
+import { BookService } from "./book.service";
+import { Response } from "express";
 export declare class BookController {
     private bookSer;
     constructor(bookSer: BookService);
-    getAllBooks(request: Request): Promise<import("src/book/book.entity").BookEntity[]>;
-    addBook(request: Request, book: any): Promise<{
+    uploadFile(file: Express.Multer.File): void;
+    uploadFileV2(file: Express.Multer.File): {
+        originalName: string;
+        fileName: string;
+    };
+    uploadFileV3(file: Express.Multer.File): {
+        originalName: string;
+        fileName: string;
+    };
+    uploadFileV4(file: Express.Multer.File): {
+        originalName: string;
+        fileName: string;
+    };
+    getFile(f: any, response: Response): void;
+    getAllBooks(): Promise<import("src/book/book.entity").BookEntity[]>;
+    addBook(book: any): Promise<{
         message: string;
     }>;
     getBookById(id: number): Promise<import("src/book/book.entity").BookEntity>;

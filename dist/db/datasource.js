@@ -10,7 +10,7 @@ exports.dataSourceOptions = {
     password: "root",
     database: "books",
     entities: ["dist/**/*.entity.js"],
-    migrations: ["migrations/*.ts"],
+    migrations: ["dist/migrations/*.js"],
     migrationsTableName: "plbmigrations",
 };
 const dataSource = new typeorm_1.DataSource(exports.dataSourceOptions);
