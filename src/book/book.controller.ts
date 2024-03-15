@@ -9,17 +9,17 @@ import {
   ParseIntPipe,
   Post,
   Put,
-  Req
-} from '@nestjs/common';
-import { BookService } from './book.service';
-import { Request } from 'express';
+  Req,
+} from "@nestjs/common";
+import { BookService } from "./book.service";
+import { Request } from "express";
 
-@Controller('book')
+@Controller("book")
 export class BookController {
   constructor(private bookSer: BookService) {}
 
-  @Get('all')
-  async getAllBooks(@Req() request: Request) {
+  @Get("all")
+  async getAllBooks() {
     try {
       let result = await this.bookSer.chercherTousLesLivres();
       return result;
@@ -28,15 +28,14 @@ export class BookController {
     }
   }
 
-  @Post('add')
-  async addBook(@Req() request: Request, @Body() book) {
-      let result = await this.bookSer.ajouterLivre(book);
-      return { message: 'Livre ajouté' };
-    
+  @Post("add")
+  async addBook(@Body() book) {
+    let result = await this.bookSer.ajouterLivre(book);
+    return { message: "Livre ajouté" };
   }
 
-  @Get('all/:id')
-  async getBookById(@Param('id') id: number) {
+  @Get("all/:id")
+  async getBookById(@Param("id") id: number) {
     try {
       let result = await this.bookSer.chercherLivreParId(id);
       return result;
@@ -45,30 +44,24 @@ export class BookController {
     }
   }
 
-  @Put('edit/:id')
-  async updateBook(
-    @Param('id', ParseIntPipe) bookId,
-    @Body() uBook,
-  ) {
+  @Put("edit/:id")
+  async updateBook(@Param("id", ParseIntPipe) bookId, @Body() uBook) {
     let result = await this.bookSer.editerLivre(uBook, bookId);
-    return { message: 'Livre mise à jour' };
+    return { message: "Livre mis à jour" };
   }
 
-  @Delete('softdel/:id')
-  async softDeleteBook(
-    @Param('id', ParseIntPipe) id,
-  ) {
+  @Delete("softdel/:id")
+  async softDeleteBook(@Param("id", ParseIntPipe) id) {
     let res = await this.bookSer.softsupprimerLivre(id);
     console.log(res);
 
     if (!res.affected) throw new NotFoundException();
-    return { message: 'Livre (soft) supprimé' };
+    return { message: "Livre (soft) supprimé" };
   }
 
-  @Put('restore/:id')
-  async restoreBook(@Param('id', ParseIntPipe) id) {
+  @Put("restore/:id")
+  async restoreBook(@Param("id", ParseIntPipe) id) {
     let res = await this.bookSer.restaurerLivre(id);
-    return { message: 'Livre restauré' };
+    return { message: "Livre restauré" };
   }
-  
 }
