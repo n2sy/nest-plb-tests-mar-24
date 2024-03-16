@@ -107,7 +107,7 @@ export class BookController {
 
   @Get("images/:filename")
   getFile(@Param("filename") f, @Res() response: Response) {
-    return response.sendFile(f, { root: "images" });
+    return response.sendFile(f, { root: "/images" });
   }
 
   // @Cron("45 * * * * *")
